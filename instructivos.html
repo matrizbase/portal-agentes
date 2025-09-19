@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Agentes - Instructivos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #003366;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    h2 {
+      color: #003366;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .instructivo {
+      display: none;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .instructivo.active {
+      display: block;
+    }
+
+    ol {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portal de Agentes</h1>
+    <p>Guías e Instructivos</p>
+  </header>
+
+  <div class="container">
+    <h2>Seleccione un proceso</h2>
+    <select id="selector">
+      <option value="">-- Seleccione una opción --</option>
+      <option value="polizas">Ingreso de Pólizas Nuevas</option>
+      <option value="renovaciones">Renovaciones de Pólizas</option>
+      <option value="reclamos">Proceso de Reclamos</option>
+      <option value="cancelaciones">Cancelación de Pólizas</option>
+    </select>
+
+    <div id="polizas" class="instructivo">
+      <h3>Ingreso de Pólizas Nuevas</h3>
+      <ol>
+        <li>Acceder al sistema interno con su usuario y contraseña.</li>
+        <li>Seleccionar la opción <b>“Nueva Póliza”</b>.</li>
+        <li>Ingresar datos del cliente: nombre, DPI, NIT, dirección y teléfono.</li>
+        <li>Seleccionar tipo de seguro: auto, vida, médico, etc.</li>
+        <li>Adjuntar documentos requeridos (DPI, formulario, comprobante de pago).</li>
+        <li>Guardar y enviar para validación.</li>
+      </ol>
+    </div>
+
+    <div id="renovaciones" class="instructivo">
+      <h3>Renovaciones de Pólizas</h3>
+      <ol>
+        <li>Ingresar al módulo <b>“Renovaciones”</b>.</li>
+        <li>Buscar al cliente por número de póliza o DPI.</li>
+        <li>Verificar vigencia y condiciones actuales.</li>
+        <li>Actualizar datos si corresponde.</li>
+        <li>Generar la nueva póliza y enviar notificación al cliente.</li>
+      </ol>
+    </div>
+
+    <div id="reclamos" class="instructivo">
+      <h3>Proceso de Reclamos</h3>
+      <ol>
+        <li>Ingresar al módulo <b>“Reclamos”</b>.</li>
+        <li>Registrar datos del siniestro: fecha, lugar, descripción.</li>
+        <li>Adjuntar pruebas y documentos (fotos, parte policial, facturas).</li>
+        <li>Enviar a departamento de siniestros.</li>
+        <li>Dar seguimiento al estatus en línea.</li>
+      </ol>
+    </div>
+
+    <div id="cancelaciones" class="instructivo">
+      <h3>Cancelación de Pólizas</h3>
+      <ol>
+        <li>Acceder al módulo <b>“Cancelaciones”</b>.</li>
+        <li>Ingresar el número de póliza.</li>
+        <li>Seleccionar motivo de cancelación.</li>
+        <li>Confirmar con el cliente y adjuntar autorización escrita.</li>
+        <li>Guardar y generar constancia de cancelación.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    const selector = document.getElementById("selector");
+    const instructivos = document.querySelectorAll(".instructivo");
+
+    selector.addEventListener("change", function() {
+      instructivos.forEach(div => div.classList.remove("active"));
+      if (this.value) {
+        document.getElementById(this.value).classList.add("active");
+      }
+    });
+  </script>
+</body>
+</html>

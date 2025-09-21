@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal Agentes - Instructivos (con Cobro)</title>
+  <style>
+    body{font-family:Inter, system-ui, Arial, sans-serif; background:#f4f7fb; margin:0; padding:0}
+    header{background:#0a4a78; color:#fff; padding:18px 12px; text-align:center}
+    .container{max-width:900px; margin:24px auto; padding:0 16px}
+    h2{color:#0a4a78}
+    select, input, textarea, button{font-size:15px; padding:10px; border-radius:6px; border:1px solid #d1dbe6; box-sizing:border-box}
+    select{width:100%; margin-bottom:18px}
+    .instructivo{display:none; background:#fff; padding:18px; border-radius:10px; box-shadow:0 6px 18px rgba(10,74,120,0.08); margin-bottom:18px}
+    .instructivo.active{display:block}
+    label{display:block; margin:8px 0 6px; font-weight:600; color:#123}
+    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    .full{grid-column:1/-1}
+    .btn{background:#0a4a78; color:#fff; border:none; cursor:pointer; border-radius:8px; padding:10px 14px}
+    .link-file{display:inline-block; margin-top:10px; text-decoration:none; background:#eaf4ff; color:#0a4a78; padding:8px 12px; border-radius:8px; border:1px solid #cfe6ff}
+    .summary{background:#fcffef; border:1px solid #f0f4d8; padding:12px; border-radius:8px; margin-top:12px}
+    ol{padding-left:18px}
+    small.note{display:block; margin-top:8px; color:#555}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portal de Agentes</h1>
+    <p>Guías e Instructivos — Incluye Formulario de Autorización de Cobro</p>
+  </header>
+
+  <div class="container">
+    <h2>Seleccione un proceso</h2>
+    <select id="selector" aria-label="Seleccione un proceso">
+      <option value="">-- Seleccione una opción --</option>
+      <option value="polizas">Ingreso de Pólizas Nuevas</option>
+      <option value="renovaciones">Renovaciones de Pólizas</option>
+      <option value="reclamos">Proceso de Reclamos</option>
+      <option value="cancelaciones">Cancelación de Pólizas</option>
+      <option value="cobro">Cobro de Seguro (aut. tarjeta)</option>
+    </select>
+
+    <!-- Secciones existentes -->
+    <div id="polizas" class="instructivo">
+      <h3>Ingreso de Pólizas Nuevas</h3>
+      <ol>
+        <li>Acceder al sistema con usuario y contraseña.</li>
+        <li>Seleccionar "Nueva Póliza".</li>
+        <li>Ingresar datos del cliente y adjuntar documentos.</li>
+        <li>Enviar para validación interna.</li>
+      </ol>
+    </div>
+
+    <div id="renovaciones" class="instructivo">
+      <h3>Renovaciones de Pólizas</h3>
+      <ol>
+        <li>Entrar al módulo "Renovaciones".</li>
+        <li>Buscar cliente por póliza o DPI.</li>
+        <li>Generar cotización y confirmar con el cliente.</li>
+        <li>Procesar pago y emitir nueva póliza.</li>
+      </ol>
+    </div>
+
+    <div id="reclamos" class="instructivo">
+      <h3>Proceso de Reclamos</h3>
+      <ol>
+        <li>Registrar siniestro en el módulo "Reclamos".</li>
+        <li>Adjuntar fotos, parte policial y facturas.</li>
+        <li>Enviar a Siniestros y dar seguimiento.</li>
+      </ol>
+    </div>
+
+    <div id="cancelaciones" class="instructivo">
+      <h3>Cancelación de Pólizas</h3>
+      <ol>
+        <li>Ingresar número de póliza y motivo.</li>
+        <li>Revisar condiciones y autorización del cliente.</li>
+        <li>Generar constancia de cancelación.</li>
+      </ol>
+    </div>
+
+    <!-- Nueva sección: Cobro -->
+    <div id="cobro" class="instructivo">
+      <h3>Cobro de Seguro — Proceso y Formulario</h3>
+
+      <p>Pasos sugeridos (proceso temporal — luego adaptamos con tus reglas):</p>
+      <ol>
+        <li>Verificar vigencia y datos del cliente.</li>
+        <li>Confirmar monto a cobrar y moneda.</li>
+        <li>Contactar al titular para solicitar autorización.</li>
+        <li>Registrar la autorización en el sistema (si aplica).</li>
+        <li>Solicitar al cliente que firme la <b>Autorización de Cobro por Tarjeta de Crédito</b> y suba el formulario escaneado.</li>
+      </ol>
+
+      <hr />
+
+      <h4>Formulario rápido (datos para preparar el cobro)</h4>
+      <form id="cobroForm">
+        <div class="grid">
+          <div>
+            <label for="nombre">Nombre del cliente</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Nombre completo" required>
+          </div>
+          <div>
+            <label for="dpi">DPI / NIT</label>
+            <input id="dpi" name="dpi" type="text" placeholder="DPI o NIT">
+          </div>
+          <div>
+            <label for="poliza">Número de póliza</label>
+            <input id="poliza" name="poliza" type="text" placeholder="000-000-000">
+          </div>
+          <div>
+            <label for="monto">Monto a cobrar</label>
+            <input id="monto" name="monto" type="number" step="0.01" placeholder="0.00" required>
+          </div>
+          <div>
+            <label for="moneda">Moneda</label>
+            <select id="moneda" name="moneda">
+              <option value="GTQ">GTQ (Quetzales)</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+          <div>
+            <label for="fecha">Fecha</label>
+            <input id="fecha" name="fecha" type="date">
+          </div>
+
+          <div class="full">
+            <label for="tarjetahabiente">Nombre del tarjetahabiente</label>
+            <input id="tarjetahabiente" name="tarjetahabiente" type="text" placeholder="Nombre en la tarjeta">
+          </div>
+
+          <div>
+            <label for="numtarjeta">Número de tarjeta</label>
+            <input id="numtarjeta" name="numtarjeta" type="text" placeholder="XXXX-XXXX-XXXX-XXXX">
+          </div>
+          <div>
+            <label for="vence">Fecha de vencimiento</label>
+            <input id="vence" name="vence" type="month" placeholder="MM/AAAA">
+          </div>
+          <div>
+            <label for="tipo">Tipo de tarjeta</label>
+            <select id="tipo" name="tipo">
+              <option>Visa</option>
+              <option>Mastercard</option>
+              <option>American Express</option>
+            </select>
+          </div>
+          <div>
+            <label for="parentesco">Parentesco con titular</label>
+            <input id="parentesco" name="parentesco" type="text" placeholder="Ej: Titular / Cónyuge / Otro">
+          </div>
+          <div class="full">
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones" name="observaciones" rows="3" placeholder="Notas internas"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="btn" type="submit">Generar resumen y preparar formulario</button>
+        </div>
+      </form>
+
+      <div id="resultado" style="display:none">
+        <div class="summary" id="resumenDatos"></div>
+
+        <p>
+          <a id="linkPdf" class="link-file" href="5_Autorizacion_de_cobro_por_tarjeta_de_credito.pdf" target="_blank" download>
+            Descargar formulario: Autorización de Cobro por Tarjeta (PDF)
+          </a>
+        </p>
+        <small class="note">Observación: el formulario se abrirá en una nueva pestaña. Imprima, firme y suba el escaneo al sistema (o envíelo por el canal que determine la aseguradora).</small>
+      </div>
+
+      <hr />
+      <p><strong>Formulario original incluido:</strong> he insertado el PDF que subiste para que lo puedan descargar y llenar. (Archivo: <code>5_Autorizacion_de_cobro_por_tarjeta_de_credito.pdf</code>).</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Selector principal
+    const selector = document.getElementById('selector');
+    const instructivos = document.querySelectorAll('.instructivo');
+    selector.addEventListener('change', function() {
+      instructivos.forEach(el => el.classList.remove('active'));
+      if (this.value) {
+        const target = document.getElementById(this.value);
+        if (target) target.classList.add('active');
+      }
+    });
+
+    // Manejo del formulario de cobro
+    document.getElementById('cobroForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const entries = Object.fromEntries(data.entries());
+      // Crear resumen sencillo
+      const resumen = `
+        <strong>Resumen de cobro</strong><br>
+        Nombre: ${entries.nombre || '-'} <br>
+        DPI/NIT: ${entries.dpi || '-'} <br>
+        Póliza: ${entries.poliza || '-'} <br>
+        Monto: ${entries.monto || '-'} ${entries.moneda || ''} <br>
+        Tarjetahabiente: ${entries.tarjetahabiente || '-'} <br>
+        Tarjeta: ${entries.numtarjeta ? entries.numtarjeta.replace(/.(?=.{4})/g, '*') : '-'} <br>
+        Vence: ${entries.vence || '-'} <br>
+        Tipo: ${entries.tipo || '-'} <br>
+        Parentesco: ${entries.parentesco || '-'} <br>
+        Observaciones: ${entries.observaciones || '-'}
+      `;
+      document.getElementById('resumenDatos').innerHTML = resumen;
+      document.getElementById('resultado').style.display = 'block';
+      // Enfocar el enlace de descarga
+      document.getElementById('linkPdf').focus();
+    });
+  </script>
+</body>
+</html>
